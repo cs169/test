@@ -79,7 +79,7 @@ group :development, :test, :linters do
   # Linters and static analysis.
   gem 'haml-lint', require: false
   gem 'pronto', require: false
-  gem 'pronto-eslint', require: false
+  gem 'pronto-eslint_npm', require: false
   gem 'pronto-flay', require: false
   gem 'pronto-haml', require: false
   gem 'pronto-rubocop', require: false
