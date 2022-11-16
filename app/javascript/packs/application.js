@@ -36,3 +36,5 @@ $(document).on('turbolinks:load', () => {
         theme: 'bootstrap',
     });
 });
+
+console.log('Hello!')
