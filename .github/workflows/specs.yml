@@ -5,9 +5,9 @@ on:
   - workflow_dispatch
 
 jobs:
-  env:
-    RAILS_MASTER_KEY: TEST
   build:
+    env:
+      RAILS_MASTER_KEY: TEST
     name: RSpec and Cucumbr
     continue-on-error: true
     runs-on: ubuntu-18.04
@@ -16,13 +16,12 @@ jobs:
         suites:
           - rspec
     steps:
-      - name: Cache multiple paths
+      - name: Cache Dependencies
         uses: actions/cache@v2
         with:
           path: |-
             node_modules
             vendor/bundle
-          key: '${{ runner.os }}-${{ hashFiles(''TODO'') }}'
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v3
         with:
