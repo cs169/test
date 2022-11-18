@@ -7,10 +7,10 @@ on:
 jobs:
   build:
     env:
-      RAILS_MASTER_KEY: TEST
+      RAILS_MASTER_KEY: TESTTESTTESTTEST
     name: RSpec and Cucumbr
     continue-on-error: true
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         suites:
