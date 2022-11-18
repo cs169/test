@@ -7,7 +7,7 @@ on:
 jobs:
   build:
     env:
-      RAILS_MASTER_KEY: TESTTESTTESTTEST
+      RAILS_MASTER_KEY: TESTTESTTESTTESTTESTTESTTESTTEST
     name: RSpec and Cucumbr
     continue-on-error: true
     runs-on: ubuntu-latest
