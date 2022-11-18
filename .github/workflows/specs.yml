@@ -5,13 +5,16 @@ on:
   - workflow_dispatch
 
 jobs:
-  # TODO: Environment variables?
+  env:
+    RAILS_MASTER_KEY: TEST
   build:
-    runs-on: '${{ matrix.os }}'
+    name: RSpec and Cucumbr
+    continue-on-error: true
+    runs-on: ubuntu-18.04
     strategy:
       matrix:
-        os:
-          - ubuntu-18.04
+        suites:
+          - rspec
     steps:
       - name: Cache multiple paths
         uses: actions/cache@v2
@@ -33,5 +36,6 @@ jobs:
       - run: yarn install
       - run: bundle exec rake db:setup
       - run: bundle exec rake db:test:prepare
-      - run: bundle exec rspec
-      - run: bundle exec cucumber
+      - run: bin/rails r 'puts Rails.application.credentials.config.to_h'
+      - name: Run ${{ matrix.suite }} Tests
+        run: bundle exec ${{ matrix.suite }}
