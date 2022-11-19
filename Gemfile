@@ -73,8 +73,6 @@ group :development, :test, :linters do
   gem 'pry'
   gem 'pry-byebug'
 
-  # 'Then I should see' and other simple steps
-  gem 'cucumber-rails-training-wheels', require: false
   # Linters and static analysis.
   gem 'haml-lint', require: false
   gem 'pronto', require: false
