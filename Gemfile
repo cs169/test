@@ -61,7 +61,6 @@ group :development, :test do
   gem 'rails_real_favicon'
 
   # Report coverage.
-  gem 'codecov', require: false
   gem 'simplecov'
 end
 

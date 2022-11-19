@@ -9,11 +9,14 @@
 # See: https://github.com/codecov/example-ruby
 
 require 'simplecov'
-SimpleCov.start 'rails'
 
-if ENV['CI']
-  require 'codecov'
-  SimpleCov.formatter = SimpleCov::Formatter::Codecov
+SimpleCov.start 'rails' do
+  # Disambiguates individual test runs
+  command_name 'Cucumber Tests'
+  formatter SimpleCov::Formatter::MultiFormatter.new([SimpleCov::Formatter::SimpleFormatter,
+                                                      SimpleCov::Formatter::HTMLFormatter])
+
+  track_files '**/*.rb'
 end
 
 require 'cucumber/rails'
