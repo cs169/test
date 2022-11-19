@@ -9,8 +9,6 @@ SimpleCov.start 'rails' do
   command_name 'RSpec Tests'
   formatter SimpleCov::Formatter::MultiFormatter.new([SimpleCov::Formatter::SimpleFormatter,
                                                       SimpleCov::Formatter::HTMLFormatter])
-
-  track_files '**/*.rb'
 end
 
 # This file is copied to spec/ when you run 'rails generate rspec:install'
