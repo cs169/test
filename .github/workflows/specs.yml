@@ -46,3 +46,14 @@ jobs:
       - run: bin/rails r 'puts Rails.application.credentials.config.to_h'
       - name: Run ${{ matrix.suite }} Tests
         run: bundle exec ${{ matrix.suite }}
+      - name: Report Code Coverage
+        uses: romeovs/lcov-reporter-action@v0.2.16
+        with:
+          lcov-file: ./coverage/lcov/ruby-simplecov.lcov
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Upload coverage report
+      if: always()
+      uses: actions/upload-artifact@v2
+      with:
+        name: head-result
+        path: coverage/*
