@@ -51,9 +51,14 @@ jobs:
         with:
           lcov-file: ./coverage/lcov/ruby-simplecov.lcov
           github-token: ${{ secrets.GITHUB_TOKEN }}
-    - name: Upload coverage report
-      if: always()
-      uses: actions/upload-artifact@v2
-      with:
-        name: head-result
-        path: coverage/*
+      - uses: kzkn/simplecov-resultset-diff-action@v1
+        with:
+          base-resultset-path: '/path/to/my/.resultset.json'
+          head-resultset-path: '/path/to/my/.resultset.json'
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload coverage report
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: head-result
+          path: coverage/*
