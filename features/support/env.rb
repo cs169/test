@@ -13,10 +13,11 @@ require 'simplecov'
 SimpleCov.start 'rails' do
   # Disambiguates individual test runs
   command_name 'Cucumber Tests'
-  formatter SimpleCov::Formatter::MultiFormatter.new([SimpleCov::Formatter::SimpleFormatter,
-                                                      SimpleCov::Formatter::HTMLFormatter])
-
-  track_files '**/*.rb'
+  formatter SimpleCov::Formatter::MultiFormatter.new([
+    SimpleCov::Formatter::SimpleFormatter,
+    SimpleCov::Formatter::HTMLFormatter,
+    SimpleCov::Formatter::JSONFormatter
+  ])
 end
 
 require 'cucumber/rails'

@@ -53,8 +53,8 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - uses: kzkn/simplecov-resultset-diff-action@v1
         with:
-          base-resultset-path: '/path/to/my/.resultset.json'
-          head-resultset-path: '/path/to/my/.resultset.json'
+          base-resultset-path: './coverage/coverage.json'
+          head-resultset-path: './coverage/coverage.json'
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: Upload coverage report
         if: always()

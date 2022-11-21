@@ -7,8 +7,11 @@ require 'simplecov'
 SimpleCov.start 'rails' do
   # Disambiguates individual test runs
   command_name 'RSpec Tests'
-  formatter SimpleCov::Formatter::MultiFormatter.new([SimpleCov::Formatter::SimpleFormatter,
-                                                      SimpleCov::Formatter::HTMLFormatter])
+  formatter SimpleCov::Formatter::MultiFormatter.new([
+    SimpleCov::Formatter::SimpleFormatter,
+    SimpleCov::Formatter::HTMLFormatter,
+    SimpleCov::Formatter::JSONFormatter
+  ])
 end
 
 # This file is copied to spec/ when you run 'rails generate rspec:install'
