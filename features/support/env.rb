@@ -9,12 +9,15 @@
 # See: https://github.com/codecov/example-ruby
 
 require 'simplecov'
+require 'simplecov-json'
+require 'simplecov-console'
 
 SimpleCov.start 'rails' do
   # Disambiguates individual test runs
   command_name 'Cucumber Tests'
   formatter SimpleCov::Formatter::MultiFormatter.new([
     SimpleCov::Formatter::SimpleFormatter,
+    SimpleCov::Formatter::Console,
     SimpleCov::Formatter::HTMLFormatter,
     SimpleCov::Formatter::JSONFormatter
   ])
