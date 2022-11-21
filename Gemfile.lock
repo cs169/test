@@ -118,6 +118,9 @@ GEM
     erubis (2.7.0)
     factory_bot (6.2.1)
       activesupport (>= 5.0.0)
+    factory_bot_rails (6.2.0)
+      factory_bot (~> 6.2.0)
+      railties (>= 5.0.0)
     faker (2.22.0)
       i18n (>= 1.8.11, < 2)
     faraday (1.8.0)
@@ -429,6 +432,9 @@ GEM
       simplecov-html (~> 0.11)
       simplecov_json_formatter (~> 0.1)
     simplecov-html (0.12.3)
+    simplecov-json (0.2.3)
+      json
+      simplecov
     simplecov_json_formatter (0.1.4)
     spring (2.1.1)
     spring-watcher-listen (2.0.1)
@@ -482,7 +488,8 @@ DEPENDENCIES
   cucumber-rails
   database_cleaner
   date_validator
-  factory_bot
+  factory_bot_rails
+  faker
   google-api-client (~> 0.34)
   guard
   guard-cucumber
@@ -512,6 +519,7 @@ DEPENDENCIES
   rubocop-rspec
   rubyzip
   simplecov
+  simplecov-json
   spring
   spring-watcher-listen (~> 2.0.0)
   sprockets (= 4.0.0)

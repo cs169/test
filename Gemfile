@@ -46,7 +46,8 @@ gem 'date_validator'
 group :development, :test do
   gem 'cucumber-rails', require: false
   gem 'database_cleaner'
-  gem 'factory_bot'
+  gem 'factory_bot_rails'
+  gem 'faker'
   gem 'rails-controller-testing'
   gem 'rspec-rails'
   gem 'sqlite3'
@@ -62,6 +63,7 @@ group :development, :test do
 
   # Report coverage.
   gem 'simplecov'
+  gem 'simplecov-json'
 end
 
 # Define a group which includes 'linters'
