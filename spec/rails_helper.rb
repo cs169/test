@@ -6,9 +6,7 @@ require 'simplecov'
 require 'simplecov-json'
 require 'simplecov-console'
 
-SimpleCov.start 'rails' do
-  # Disambiguates individual test runs
-  command_name 'RSpec Tests'
+SimpleCov.start do
   formatter SimpleCov::Formatter::MultiFormatter.new([
     SimpleCov::Formatter::SimpleFormatter,
     SimpleCov::Formatter::Console,

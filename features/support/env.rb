@@ -6,26 +6,10 @@
 # instead of editing this one. Cucumber will automatically load all features/**/*.rb
 # files.
 
-# See: https://github.com/codecov/example-ruby
-
-require 'simplecov'
-require 'simplecov-json'
-require 'simplecov-console'
-
-SimpleCov.start 'rails' do
-  # Disambiguates individual test runs
-  command_name 'Cucumber Tests'
-  formatter SimpleCov::Formatter::MultiFormatter.new([
-    SimpleCov::Formatter::SimpleFormatter,
-    SimpleCov::Formatter::Console,
-    SimpleCov::Formatter::HTMLFormatter,
-    SimpleCov::Formatter::JSONFormatter
-  ])
-end
-
 require 'cucumber/rails'
 
-# frozen_string_literal: true
+# Load a shared rspec config
+require 'spec/rails_helper'
 
 # Capybara defaults to CSS3 selectors rather than XPath.
 # If you'd prefer to use XPath, just uncomment this line and adjust any

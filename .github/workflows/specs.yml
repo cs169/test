@@ -8,6 +8,7 @@ jobs:
   build:
     env:
       RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+      DISPLAY: ':99' # For chromedriver
     name: RSpec and Cucumbr
     continue-on-error: true
     runs-on: ubuntu-latest
