@@ -47,7 +47,11 @@ jobs:
       - run: bin/rails r 'puts Rails.application.credentials.config.to_h'
       - name: Run ${{ matrix.suite }} Tests
         run: bundle exec ${{ matrix.suite }}
-      - name: Report Code Coverage
+      - name: Upload Coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }
+      - name: Report Code Coverage to GitHub
         uses: romeovs/lcov-reporter-action@v0.2.16
         with:
           lcov-file: ./coverage/lcov/ruby-simplecov.lcov
