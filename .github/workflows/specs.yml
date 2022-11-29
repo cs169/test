@@ -50,7 +50,7 @@ jobs:
       - name: Upload Coverage to Codecov
         uses: codecov/codecov-action@v3
         with:
-          token: ${{ secrets.CODECOV_TOKEN }
+          token: ${{ secrets.CODECOV_TOKEN }}
       - name: Report Code Coverage to GitHub
         uses: romeovs/lcov-reporter-action@v0.2.16
         with:
