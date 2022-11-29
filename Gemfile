@@ -63,6 +63,7 @@ group :development, :test do
 
   # Report coverage.
   gem 'simplecov'
+  gem 'simplecov-cobertura'
   gem 'simplecov-console'
   gem 'simplecov-json'
 end
