@@ -9,6 +9,7 @@ jobs:
     env:
       RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
       DISPLAY: ':99' # For chromedriver
+      RUBYOPT: '-W:no-deprecated -W:no-experimental'
     name: RSpec and Cucumbr
     continue-on-error: true
     runs-on: ubuntu-latest
