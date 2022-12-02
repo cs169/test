@@ -3,8 +3,6 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.6.6' # Make sure that this matches .ruby-version file.
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '5.2.8.1'
 # Use Puma as the app server
@@ -43,26 +41,24 @@ gem 'rubyzip'
 
 gem 'date_validator'
 
-group :development, :test do
+group :test do
+  gem 'capybara'
   gem 'cucumber-rails', require: false
   gem 'database_cleaner'
-  gem 'factory_bot'
+  gem 'factory_bot_rails'
+  gem 'faker'
   gem 'rails-controller-testing'
   gem 'rspec-rails'
   gem 'sqlite3'
 
-  # Guard Plugins
-  gem 'guard'
-  gem 'guard-cucumber', require: false
-  gem 'guard-rspec', require: false
-  gem 'guard-rubocop', require: false
-
-  # Generate different sizes of favicon from a single image.
-  gem 'rails_real_favicon'
-
   # Report coverage.
-  gem 'codecov', require: false
   gem 'simplecov'
+  gem 'simplecov-cobertura'
+  gem 'simplecov-console'
+  gem 'simplecov-json'
+
+  # Browser Simulation Testing
+  gem 'selenium-webdriver', require: false
 end
 
 # Define a group which includes 'linters'
@@ -74,12 +70,9 @@ group :development, :test, :linters do
   gem 'pry'
   gem 'pry-byebug'
 
-  # 'Then I should see' and other simple steps
-  gem 'cucumber-rails-training-wheels', require: false
   # Linters and static analysis.
   gem 'haml-lint', require: false
   gem 'pronto', require: false
-  gem 'pronto-flay', require: false
   gem 'pronto-haml', require: false
   gem 'pronto-rubocop', require: false
   gem 'rubocop', require: false
@@ -92,6 +85,16 @@ group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'web-console', '>= 3.3.0'
+
+  # Guard Plugins
+  gem 'guard'
+  gem 'guard-cucumber', require: false
+  gem 'guard-rspec', require: false
+  gem 'guard-rubocop', require: false
+
+  # Generate different sizes of favicon from a single image.
+  gem 'rails_real_favicon'
+
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'

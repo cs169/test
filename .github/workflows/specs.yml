@@ -5,33 +5,66 @@ on:
   - workflow_dispatch
 
 jobs:
-  # TODO: Environment variables?
   build:
-    runs-on: '${{ matrix.os }}'
+    env:
+      RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+      DISPLAY: ':99' # For chromedriver
+      RUBYOPT: '-W:no-deprecated -W:no-experimental'
+    name: RSpec and Cucumbr
+    continue-on-error: true
+    runs-on: ubuntu-latest
     strategy:
       matrix:
-        os:
-          - ubuntu-18.04
+        suite:
+          - rspec
+          - cucumber
     steps:
-      - name: Cache multiple paths
-        uses: actions/cache@v2
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+      - uses: actions/cache@v3
+        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
         with:
-          path: |-
-            node_modules
-            vendor/bundle
-          key: '${{ runner.os }}-${{ hashFiles(''TODO'') }}'
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
       - uses: actions/checkout@v2
+      # - name: Setup upterm session
+      #   uses: lhotari/action-upterm@v1
       - uses: actions/setup-node@v3
         with:
-          node-version: 12.13.1
+          node-version: 14
       - uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
-      - run: gem install bundler:2.1.4
+      - run: ruby -e 'puts ENV.to_h.sort'
+      - run: |
+          ruby -e 'puts "Key X#{ENV["RAILS_MASTER_KEY"]} |||"'
       - run: npm install -g yarn@1.22.4
-      - run: bundle install
       - run: yarn install
       - run: bundle exec rake db:setup
       - run: bundle exec rake db:test:prepare
-      - run: bundle exec rspec
-      - run: bundle exec cucumber
+      - run: bin/rails r 'puts Rails.application.credentials.config.to_h'
+      - name: Run ${{ matrix.suite }} Tests
+        run: bundle exec ${{ matrix.suite }}
+      - name: Upload Coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+      - name: Report Code Coverage to GitHub
+        uses: romeovs/lcov-reporter-action@v0.2.16
+        with:
+          lcov-file: ./coverage/lcov/ruby-simplecov.lcov
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: kzkn/simplecov-resultset-diff-action@v1
+        with:
+          base-resultset-path: './coverage/coverage.json'
+          head-resultset-path: './coverage/coverage.json'
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload coverage report
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: head-result
+          path: coverage/*

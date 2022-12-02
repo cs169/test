@@ -55,6 +55,9 @@ Gemspec/RequiredRubyVersion:
 Layout/EmptyLineAfterGuardClause:
     Enabled: true
 
+Layout/FirstArrayElementIndentation:
+    Enabled: false
+
 # No space makes the method definition shorter and differentiates
 # from a regular assignment.
 Layout/SpaceAroundEqualsInParameterDefault:
