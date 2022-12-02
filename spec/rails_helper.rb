@@ -1,28 +1,14 @@
 # frozen_string_literal: true
-
-# See: https://github.com/codecov/example-ruby
-
-require 'simplecov'
-require 'simplecov-json'
-require 'simplecov-console'
-
-SimpleCov.start do
-  formatter SimpleCov::Formatter::MultiFormatter.new([
-    SimpleCov::Formatter::SimpleFormatter,
-    SimpleCov::Formatter::Console,
-    SimpleCov::Formatter::HTMLFormatter,
-    SimpleCov::Formatter::JSONFormatter
-  ])
-end
-
-# This file is copied to spec/ when you run 'rails generate rspec:install'
-require 'spec_helper'
-ENV['RAILS_ENV'] ||= 'test'
-require File.expand_path('../config/environment', __dir__)
 # Prevent database truncation if the environment is production
 abort('The Rails environment is running in production mode!') if Rails.env.production?
+require File.expand_path('../config/environment', __dir__)
+
+ENV['RAILS_ENV'] ||= 'test'
 require 'rspec/rails'
-# Add additional requires below this line. Rails is not loaded until this point!
+require 'simplecov'
+
+# This file is copied to spec/ when you run 'rails generate rspec:install'
+require_relative './spec_helper'
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -47,16 +33,25 @@ rescue ActiveRecord::PendingMigrationError => e
   puts e.to_s.strip
   exit 1
 end
+
 RSpec.configure do |config|
+  config.include FactoryBot::Syntax::Methods
+
+  # Much of this comes from
+  # https://avdi.codes/configuring-database_cleaner-with-rails-rspec-capybara-and-selenium/
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)
+    FactoryBot.find_definitions
   end
+
   config.before do
     DatabaseCleaner.strategy = :transaction
   end
+
   config.before(:each, js: true) do
     DatabaseCleaner.strategy = :truncation
   end
+
   config.before do
     DatabaseCleaner.start
   end
@@ -64,11 +59,6 @@ RSpec.configure do |config|
     DatabaseCleaner.clean
   end
 
-  # FactoryBot Config.
-  config.include FactoryBot::Syntax::Methods
-  config.before(:suite) do
-    FactoryBot.find_definitions
-  end
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 

@@ -7,7 +7,6 @@ require 'selenium/webdriver'
 require 'cucumber'
 
 ### Google Chrome
-
 chrome_options = Selenium::WebDriver::Chrome::Options.new
 chrome_options.add_preference(:download, prompt_for_download: false,
                                          default_directory:   '/tmp/downloads')
@@ -25,19 +24,17 @@ Capybara.register_driver :headless_chrome do |app|
 
   driver = Capybara::Selenium::Driver.new(app, browser: :chrome, capabilities: [chrome_options])
 
-  ### Allow file downloads in Google Chrome when headless!!!
+  ### Allow file downloads in Google Chrome when headless!
   ### https://bugs.chromium.org/p/chromium/issues/detail?id=696481#c89
-  bridge = driver.browser.send(:bridge)
+  # bridge = driver.browser.send(:bridge)
 
-  path = "/session/#{bridge.session_id}/chromium/send_command"
+  # path = "/session/#{bridge.session_id}/chromium/send_command"
 
-  bridge.http.call(:post, path, cmd:    'Page.setDownloadBehavior',
-                                params: {
-                                  behavior:     'allow',
-                                  downloadPath: '/tmp/downloads'
-                                })
-  ###
-
+  # bridge.http.call(:post, path, cmd:    'Page.setDownloadBehavior',
+  #                               params: {
+  #                                 behavior:     'allow',
+  #                                 downloadPath: '/tmp/downloads'
+  #                               })
   driver
 end
 
@@ -85,4 +82,4 @@ else
   Capybara.default_driver = :headless_chrome
 end
 
-puts "RUNNING CAPYBARA WITH DRIVER #{Capybara.javascript_driver}"
+puts "RUNNING CAPYBARA WITH DRIVER #{Capybara.default_driver}"

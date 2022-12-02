@@ -9,7 +9,7 @@
 require 'cucumber/rails'
 
 # Load a shared rspec config
-require 'spec/rails_helper'
+require_relative '../../spec/rails_helper'
 
 # Capybara defaults to CSS3 selectors rather than XPath.
 # If you'd prefer to use XPath, just uncomment this line and adjust any
