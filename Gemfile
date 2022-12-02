@@ -3,8 +3,6 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.6.6' # Make sure that this matches .ruby-version file.
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '5.2.8.1'
 # Use Puma as the app server
@@ -44,7 +42,7 @@ gem 'rubyzip'
 gem 'date_validator'
 
 group :test do
-  gem 'capybara', require: false
+  gem 'capybara'
   gem 'cucumber-rails', require: false
   gem 'database_cleaner'
   gem 'factory_bot_rails'
